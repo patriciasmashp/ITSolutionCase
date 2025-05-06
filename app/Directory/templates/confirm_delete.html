@@ -1,0 +1,9 @@
+{% extends 'link_form.html' %}
+ 
+{% block form %}
+    <h1>{{title}}</h1>
+    <form action="" method="post">{% csrf_token %}
+      <p>Вы действительно хотите удалить {{enitity_name}}?</p>
+      <input type="submit" class="btn btn-danger" value="Да" />
+    </form>
+{% endblock form %}

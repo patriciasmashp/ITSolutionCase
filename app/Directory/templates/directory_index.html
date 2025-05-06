@@ -1,0 +1,15 @@
+{% extends 'core.html' %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'dir_styles.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper">
+    <div class="form p-4">
+      {% block form %}
+
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

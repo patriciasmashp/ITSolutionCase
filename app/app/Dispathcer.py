@@ -11,7 +11,8 @@ from app.Mappers.DjangoPaymentMapper import DjangoPaymentMapper
 
 
 class Dispathcer:
-    """Класс реализует паттерн Singleton и предоставляет единый интерфейс для работы с сервисами"""
+    """Класс реализует паттерн Singleton
+    и предоставляет единый интерфейс для работы с сервисами"""
     _instance = None
 
     def __new__(class_, *args, **kwargs):

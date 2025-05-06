@@ -1,0 +1,12 @@
+{% extends 'directory_index.html' %}
+
+{% block form %}
+  <h1 class="title mt-2 mb-3">{{ title }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="text-center">
+      <input type="submit" value="Сохранить"  class="btn btn-success"/>
+    </div>
+  </form>
+{% endblock %}

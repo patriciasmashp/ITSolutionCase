@@ -2,6 +2,7 @@ from django.test import TestCase
 from Directory.DirectoryService.Schemas import CategorySchema, StatusSchema, SubcategorySchema, TypeSchema
 from app.Dispathcer import Dispathcer
 from Directory.models import Type, Category, Subcategory, Status
+from Payment.PaymentService.PaymentValidator import PaymentValidator
 from .PaymentService.Schemas import PaymentSchema
 
 
@@ -154,3 +155,4 @@ class TestPayment(TestCase):
         }
         with self.assertRaises(ValueError) as cm:
             self.dispathcer.fetch_directory_and_create_payment(payment)
+

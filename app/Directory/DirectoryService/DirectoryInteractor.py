@@ -5,7 +5,9 @@ from .Schemas import CategorySchema, StatusSchema, TypeSchema
 
 
 class DirectoryInteractor:
-    """Класс инкапсулирует бизнес-логику работы с типами, статусами и категориями"""
+    """Класс инкапсулирует бизнес-логику работы с типами,
+    статусами и категориями"""
+
     def __init__(self, directory_repository: DirecotryRepository):
         self.directory_repository: DirecotryRepository = directory_repository()
 
@@ -40,4 +42,3 @@ class DirectoryInteractor:
 
     def get_subcategories(self) -> List[CategorySchema]:
         return self.directory_repository.get_subcategories()
-

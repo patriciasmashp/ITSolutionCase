@@ -1,9 +1,11 @@
 from typing import List
-from .Schemas import CategorySchema, StatusSchema, SubcategorySchema, TypeSchema
+from .Schemas import (CategorySchema, StatusSchema, SubcategorySchema,
+                      TypeSchema)
 
 
 class HTMLPresentator:
-    """Класс предоставляет статические методы для преобразования данных и отправки на фронт"""
+    """Класс предоставляет статические методы для преобразования данных и отправки в html"""
+
     def category_list(data: List[CategorySchema]):
         res = []
         for category in data:
@@ -31,10 +33,9 @@ class HTMLPresentator:
             type_ser = HTMLPresentator.payment_type(type)
             res.append(type_ser)
         return res
-    
+
     def payment_type(data: TypeSchema):
         return {'id': data.id, 'name': data.name}
-
 
     def status(data: StatusSchema):
         return {'id': data.id, 'name': data.name}

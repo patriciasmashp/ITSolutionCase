@@ -20,8 +20,21 @@ class PaymentInteractor:
                                 subcategory: SubcategorySchema,
                                 amount: float,
                                 create_date: datetime = datetime.now(),
-                                comment: str = ''):
+                                comment: str = '') -> PaymentSchema:
+        """Метод создает объект payment и сохраняет его
 
+        Args:
+            status (StatusSchema): DTO статуса
+            payment_type (TypeSchema): DTO типа
+            category (CategorySchema): DTO категории
+            subcategory (SubcategorySchema): DTO подкатегории
+            amount (float): Сумма
+            create_date (datetime, optional): Дата создания. Defaults to datetime.now().
+            comment (str, optional): Комментарий. Defaults to ''.
+
+        Returns:
+            PaymentSchema: DTO с данными ДДС
+        """
         payment = PaymentSchema(payment_type=payment_type,
                                 category=category,
                                 amount=amount,
@@ -33,16 +46,36 @@ class PaymentInteractor:
 
         return payment
 
-    def get_payments(self):
+    def get_payments(self) -> List[PaymentSchema]:
+        """Метод возвращает список ДДС 
+
+        Returns:
+            List[PaymentSchema]: Список DTO c данными ДДС
+        """
 
         return self.repository.get_payments()
 
-    def delete_payment(self, id: int):
+    def delete_payment(self, id: int) -> bool:
+        """Удаление ДДС по его id
 
+        Args:
+            id (int): id ДДС записи в бд
+
+        Returns:
+            bool: True в случае успешного удаления
+            и False в ином случае
+        """
         return self.repository.delete_payment(id)
 
-    def get_payment(self, id: int):
+    def get_payment(self, id: int) -> PaymentSchema:
+        """Получить ДДС по его id
 
+        Args:
+            id (int): id ДДС записи в бд
+
+        Returns:
+            PaymentSchema: DTO с данными ДДС
+        """
         return self.repository.get_payment(id)
 
     def update_payment(self,
@@ -53,7 +86,22 @@ class PaymentInteractor:
                        subcategory: SubcategorySchema,
                        amount: float,
                        create_date: datetime = datetime.now(),
-                       comment: str = ''):
+                       comment: str = '') -> PaymentSchema:
+        """_summary_
+
+        Args:
+            id (int): id обновляемой записи
+            status (StatusSchema): DTO статуса
+            payment_type (TypeSchema): DTO типа
+            category (CategorySchema): DTO категории
+            subcategory (SubcategorySchema): DTO подкатегории
+            amount (float): Сумма
+            create_date (datetime, optional): Дата создания. Defaults to datetime.now().
+            comment (str, optional): Комментарий. Defaults to ''.
+
+        Returns:
+            PaymentSchema: DTO с данными ДДС
+        """
         payment = PaymentSchema(id=id,
                                 payment_type=payment_type,
                                 category=category,
@@ -66,4 +114,12 @@ class PaymentInteractor:
 
     def filter_payments(self,
                         filter_data: AbstractFilter) -> List[PaymentSchema]:
+        """Фильтрация ДДС
+
+        Args:
+            filter_data (AbstractFilter): Объект-предок AbstractFilter реализующий метод build
+
+        Returns:
+            List[PaymentSchema]: Отфильтрованный список DTO c данными ДДС
+        """
         return self.repository.get_payments(filter_data)

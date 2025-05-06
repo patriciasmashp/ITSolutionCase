@@ -1,125 +1,111 @@
-<!DOCTYPE html>
+{% extends 'core.html' %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'styles.css' %}" />
-    <script src="{% static 'structs.js' %}"></script>
-    <title>ДДС</title>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="nav-wrapper mb-4">
-        <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Главная</a>
-          </li>
-        </ul>
-      </div>
-      <div class="container">
-        <form class="input-group mb-3" id="filterForm"  onchange="filterChange">
-          <input type="datetime-local" name="timeStart" class="form-control col-3" id="datetimepickerAt" />
-          <input type="datetime-local" name="timeEnd" class="form-control col-3" id="datetimepickerTo" />
-          <select class="btn btn-outline-secondary" name="statusId" id="statusFilter">
-            <option value="">Статус</option>
-            {% for status in statuses %}
-              <option value="{{ status.id }}">{{ status.name }}</option>
-            {% endfor %}
-          </select>
-          <select class="btn btn-outline-secondary" name="typeId" id="typeFilter">
-            <option value="">Тип</option>
-            {% for type in types %}
-              <option value="{{ type.id }}">{{ type.name }}</option>
-            {% endfor %}
-          </select>
-          <select class="btn btn-outline-secondary" name="categoryId" id="categoryFilter">
-            <option value="">Категория</option>
-            {% for category in categories %}
-              <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-          </select>
-          <select class="btn btn-outline-secondary" name="subcategoryId" id="subcategoryFilter">
-            <option value="">Подкатегория</option>
-            {% for subcategory in subcategories %}
-              <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
-            {% endfor %}
-          </select>
-        </form>
-        <table class="table table-responsive-lg">
-          <thead>
-            <tr class="text-center">
-              <th scope="col">Дата</th>
-              <th scope="col">Статус</th>
-              <th scope="col">Тип</th>
-              <th scope="col">Категория</th>
-              <th scope="col">Подкатегория</th>
-              <th scope="col">Сумма</th>
-              <th scope="col">Комментарий</th>
-              <th scope="col">Действия</th>
-            </tr>
-          </thead>
-          <tbody id="paymentsTableBody">
-            {% for payment in payments %}
-              {% include 'TableRow.html' with payment=payment %}
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="pop-app" onclick="toogleModalPayment" data-bs-toggle="modal" data-bs-target="#createPaymentModal">
-      <div class="pop-app__wrapper rounded-circle">
-        <div class="pop-app__content">+</div>
-      </div>
-    </div>
-    <div class="modal" tabindex="-1" id="createPaymentModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Добавить ДДС</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  {% comment %} <link rel="stylesheet" href="{% static 'index.css' %}" /> {% endcomment %}
+  <title>ДДС</title>
+{% endblock %}
+{% block content %}
+  <form class="input-group mb-3" id="filterForm" onchange="filterChange">
+    <input type="datetime-local" name="timeStart" class="form-control col-3" id="datetimepickerAt" />
+    <input type="datetime-local" name="timeEnd" class="form-control col-3" id="datetimepickerTo" />
+    <select class="btn btn-outline-secondary" name="statusId" id="statusFilter">
+      <option value="">Статус</option>
+      {% for status in statuses %}
+        <option value="{{ status.id }}">{{ status.name }}</option>
+      {% endfor %}
+    </select>
+    <select class="btn btn-outline-secondary" name="typeId" id="typeFilter">
+      <option value="">Тип</option>
+      {% for type in types %}
+        <option value="{{ type.id }}">{{ type.name }}</option>
+      {% endfor %}
+    </select>
+    <select class="btn btn-outline-secondary" name="categoryId" id="categoryFilter">
+      <option value="">Категория</option>
+      {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endfor %}
+    </select>
+    <select class="btn btn-outline-secondary" name="subcategoryId" id="subcategoryFilter">
+      <option value="">Подкатегория</option>
+      {% for subcategory in subcategories %}
+        <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+      {% endfor %}
+    </select>
+  </form>
+  <table class="table table-responsive-lg">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">Дата</th>
+        <th scope="col">Статус</th>
+        <th scope="col">Тип</th>
+        <th scope="col">Категория</th>
+        <th scope="col">Подкатегория</th>
+        <th scope="col">Сумма</th>
+        <th scope="col">Комментарий</th>
+        <th scope="col">Действия</th>
+      </tr>
+    </thead>
+    <tbody id="paymentsTableBody">
+      {% for payment in payments %}
+        {% include 'TableRow.html' with payment=payment %}
+      {% endfor %}
+    </tbody>
+  </table>
 
-          <div class="modal-body">
-            <form id="addPaymentForm" class="m-3">
-              {% csrf_token %}
-              {{ form.payment_type }}
-            </form>
-          </div>
+  <div class="pop-app" onclick="toogleModalPayment" data-bs-toggle="modal" data-bs-target="#createPaymentModal">
+    <div class="pop-app__wrapper rounded-circle">
+      <div class="pop-app__content">+</div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" id="createPaymentModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавить ДДС</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-            <button type="button" id="submitPaymentAddForm" disabled class="btn btn-primary">Добавить</button>
-          </div>
+        <div class="modal-body">
+          <form id="addPaymentForm" class="m-3">
+            {% csrf_token %}
+            {{ form.payment_type }}
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="button" id="submitPaymentAddForm" disabled class="btn btn-primary">Добавить</button>
         </div>
       </div>
     </div>
-    <div class="modal" tabindex="-1" id="editPaymentModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Редактировать ДДС</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+  </div>
+  <div class="modal" tabindex="-1" id="editPaymentModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редактировать ДДС</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-          <div class="modal-body">
-            <div class="error" id="errorEditPayment"></div>
-            <form id="editPaymentForm" class="m-3">
-              {% csrf_token %}
-            </form>
-          </div>
+        <div class="modal-body">
+          <div class="error" id="errorEditPayment"></div>
+          <form id="editPaymentForm" class="m-3">
+            {% csrf_token %}
+          </form>
+        </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-            <button type="button" id="submitPaymentEditForm" onclick="editPayment()" class="btn btn-primary">Сохранить</button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="button" id="submitPaymentEditForm" onclick="editPayment()" class="btn btn-primary">Сохранить</button>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+{% endblock %}
+{% block scripts %}
   <script src="{% static 'scripts.js' %}"></script>
+
   <script src="{% static 'filter.js' %}"></script>
-</html>
+{% endblock %}

@@ -1,11 +1,17 @@
 from abc import ABC, abstractmethod
-from typing import List, Any
-
-from .Schemas import PaymentSchema
+from typing import Any
 
 
 class AbstractFilter(ABC):
-    """Абстрактный класс для фильтрации платежей для защиты репозитория от изменений"""
+    """Абстрактный класс для фильтрации платежей
+    для защиты репозитория от изменений"""
+
     @abstractmethod
-    def build(self, payments: List[PaymentSchema]) -> Any:
+    def build(self) -> Any:
+        """Метод собирает фильтр в удобочитаемый вид для репозитория
+
+        Returns:
+            Any: Объект воспринимаемый репозиторием
+            (в случае django это фильтры Q)
+        """
         pass

@@ -31,7 +31,6 @@ class DjangoPaymentRepository(PaymentRepository):
             payment_filter: AbstractFilter = None) -> List[PaymentSchema]:
 
         if payment_filter:
-            print(payment_filter.build())
             payments = self.model.objects.filter(payment_filter.build())
         else:
             payments = self.model.objects.select_related(
@@ -49,7 +48,10 @@ class DjangoPaymentRepository(PaymentRepository):
     def delete_payment(self, id) -> bool:
         payment = self.model.objects.get(id=id)
         if payment:
-            payment.delete()
+            try:
+                payment.delete()
+            except Exception:
+                return False
             return True
         return False
 

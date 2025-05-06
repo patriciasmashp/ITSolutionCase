@@ -15,6 +15,10 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):  # new
+
+        return reverse('directory_index') + "?success=Статус"
+
 
 class Type(models.Model):
 
@@ -22,12 +26,13 @@ class Type(models.Model):
         verbose_name_plural = 'Типы'
 
     name = models.CharField(verbose_name='Название типа', max_length=100)
-    
-    def get_absolute_url(self): # new
-        return reverse('index')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):  # new
+
+        return reverse('directory_index') + "?success=Тип"
 
 
 class Category(models.Model):
@@ -44,6 +49,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):  # new
+
+        return reverse('directory_index') + "?success=Категория"
+
 
 class Subcategory(models.Model):
 
@@ -59,3 +68,7 @@ class Subcategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):  # new
+
+        return reverse('directory_index') + "?success=Подкатегория"

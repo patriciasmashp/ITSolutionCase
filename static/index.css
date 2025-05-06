@@ -1,0 +1,18 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css");
+
+body {
+    background-color: rgba(0, 0, 0, 0.055);
+}
+
+.nav{
+    background-color: black;
+    padding: 5px 0px;
+}
+
+.nav .nav-link{
+    color: gold;
+}
+
+.nav  .active{
+    color: white;
+}

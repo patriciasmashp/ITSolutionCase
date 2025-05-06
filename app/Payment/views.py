@@ -15,7 +15,7 @@ dispathcer = Dispathcer()
 
 
 class IndexView(View):
-
+    
     def get(self, request, *args, **kwargs):
         """
         Индексная страница
@@ -43,7 +43,7 @@ class IndexView(View):
                 DirectoryHTMLPresentator.type_list(types),
             })
 
-    def delete(self, payment_id: int):
+    def delete(self, request,  payment_id: int):
         """Удаление платежа"""
 
         result = dispathcer.delete_payment(payment_id)

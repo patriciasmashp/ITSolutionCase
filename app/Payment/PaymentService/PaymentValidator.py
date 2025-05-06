@@ -6,7 +6,16 @@ class PaymentValidator():
     def __init__(self, payment: PaymentSchema):
         self.payment = payment
 
-    def validate(self):
+    def validate(self) -> PaymentSchema:
+        """Метод проверяет выполнение бизне-логики в объекте PaymentSchema
+
+        Raises:
+            ValueError: Ошбики валидации
+
+
+        Returns:
+            PaymentSchema
+        """
         self.payment = self.normalize()
         if self.payment.amount < 0:
             raise ValueError("Amount must be greater than 0")
@@ -17,6 +26,17 @@ class PaymentValidator():
         
         return self.payment
 
-    def normalize(self):
+    def normalize(self) -> PaymentSchema:
+        """Метод приводит к машиночитаемому виду данные из PaymentSchema
+
+        Returns:
+            PaymentSchema: _description_
+        """
+        if isinstance(self.payment.amount, str):
+            self.payment.amount = self.payment.amount.replace('руб', '')
+            self.payment.amount = self.payment.amount.replace('рублей', '')
+            self.payment.amount = self.payment.amount.replace('р', '')
+            self.payment.amount = self.payment.amount.replace('р.', '')
+            self.payment.amount = self.payment.amount.strip()
         self.payment.amount = float(self.payment.amount)
         return self.payment
