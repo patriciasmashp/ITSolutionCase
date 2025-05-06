@@ -1,0 +1,13 @@
+<tr class="text-center" data-payment="{{ payment.id }}">
+  <td>{{ payment.create_date }}</td>
+  <td>{{ payment.status }}</td>
+  <td>{{ payment.payment_type }}</td>
+  <td>{{ payment.category }}</td>
+  <td>{{ payment.subcategory }}</td>
+  <td>{{ payment.amount }}</td>
+  <td class="payment-element-comment">{{ payment.comment }}</td>
+  <td>
+    <div class="btn btn-danger" onclick="deletePayment({{ payment.id }})">Удалить</div>
+    <div class="btn btn-warning" onclick="toogleModalEditPayment({{ payment.id }})">Изменить</div>
+  </td>
+</tr>

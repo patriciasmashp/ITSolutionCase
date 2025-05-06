@@ -1,0 +1,43 @@
+body {
+    background-color: rgba(0, 0, 0, 0.055);
+}
+
+.nav-wrapper {
+    background-color: rgb(65 65 65 / 49%);
+    font-size: 1.5em;
+}
+
+.payment-element-comment {
+    max-width: 200px;
+}
+
+.pop-app {
+    position: fixed;
+    right: 56px;
+    bottom: 10px;
+}
+
+.pop-app__wrapper {
+    background-color: #11dd11;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #00000045;
+}
+
+.pop-app__content {
+    font-size: 20px;
+}
+
+.error{
+    color: red;
+}
+
+.error ul li{
+    list-style: none;
+}
+
+#datetimepicker{}
